@@ -2,10 +2,15 @@
 # $ sudo chmod +x uss.sh
 # $ source uss.sh
 
+#TO DO: 
+# prevent the EV to be added to .bashrc if they already exist
+# finish GPU tensorflow option 
+
 #USER VARIABLES TO MODIFY
 git_email="laygond_bryan@hotmail.com"
 git_name="laygond"
 venv_name="udacity"
+gpu_ON=false 
 
 # Configure git with your account for commits
 git config --global user.email $git_email
@@ -19,12 +24,12 @@ sudo apt-get upgrade -y
 sudo apt-get install python3-pip
 
 # Install virtual environment and set environmental variables
-sudo pip3 install -U virtualenv virtualenvwrapper
-echo -e "\n# virtualenv and virtualenvwrapper" >> ~/.bashrc
-echo "export WORKON_HOME=$HOME/.virtualenvs" >> ~/.bashrc
-echo "export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3" >> ~/.bashrc
-echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
-source ~/.bashrc
+#sudo pip3 install -U virtualenv virtualenvwrapper
+#echo -e "\n# virtualenv and virtualenvwrapper" >> ~/.bashrc
+#echo "export WORKON_HOME=$HOME/.virtualenvs" >> ~/.bashrc
+#echo "export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3" >> ~/.bashrc
+#echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
+#source ~/.bashrc
 
 # Create Virtual Environment and activate it
 #mkvirtualenv $venv_name -p python3
@@ -39,9 +44,15 @@ pip3 list  # show packages installed within the virtual environment
 # Install OpenCV 
 pip3 install opencv-contrib-python
 
-# Install TensorFlow
-pip3 install tensorflow-gpu
+# Install TensorFlow 
+#if $gpu_ON
+#	pip3 install tensorflow-gpu==1.2  #Make sure version compatible with your CUDA version 
+pip3 install tensorflow
 
+
+
+
+#--------------------------------------
 # { # try
 
 #     command1 &&
@@ -50,3 +61,5 @@ pip3 install tensorflow-gpu
 # } || { # catch
 #     # save log for exception 
 # }
+
+#
