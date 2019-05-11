@@ -1,6 +1,15 @@
 #USAGE: 
 # $ sudo chmod +x uss.sh
-# $ ./uss.sh
+# $ source uss.sh
+
+#USER VARIABLES TO MODIFY
+git_email="laygond_bryan@hotmail.com"
+git_name="laygond"
+venv_name="udacity"
+
+# Configure git with your account for commits
+git config --global user.email $git_email
+git config --global user.name $git_name
 
 # Update and upgrade packages
 sudo apt-get update
@@ -11,7 +20,6 @@ sudo apt-get install python3-pip
 
 # Install virtual environment and set environmental variables
 sudo pip3 install -U virtualenv virtualenvwrapper
-#$ sudo rm -rf ~/get-pip.py ~/.cache/pip
 echo -e "\n# virtualenv and virtualenvwrapper" >> ~/.bashrc
 echo "export WORKON_HOME=$HOME/.virtualenvs" >> ~/.bashrc
 echo "export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3" >> ~/.bashrc
@@ -19,10 +27,10 @@ echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
 source ~/.bashrc
 
 # Create Virtual Environment and activate it
-mkvirtualenv udacity -p python3
-workon udacity
-#virtualenv --system-site-packages -p python3 ./venv
-#source ./venv/bin/activate  # sh, bash, ksh, or zsh
+#mkvirtualenv $venv_name -p python3
+#workon $venv_name
+virtualenv --system-site-packages -p python3 ./$venv_name
+source ./$venv_name/bin/activate  # sh, bash, ksh, or zsh
 
 # Install pkg within the udacity env
 pip3 install --upgrade pip
