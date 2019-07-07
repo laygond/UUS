@@ -20,8 +20,16 @@ git config --global user.name $git_name
 sudo apt-get update
 sudo apt-get upgrade -y
 
+#Install tree
+sudo apt-get install tree
+
+#echo -e "\n# virtualenv and virtualenvwrapper" >> ~/.bashrc
+#echo "export WORKON_HOME=$HOME/.virtualenvs" >> ~/.bashrc
+
+
+#-------------------
 # Install pip3
-sudo apt-get install python3-pip
+#sudo apt-get install python3-pip
 
 # Install virtual environment and set environmental variables
 #sudo pip3 install -U virtualenv virtualenvwrapper
@@ -34,20 +42,20 @@ sudo apt-get install python3-pip
 # Create Virtual Environment and activate it
 #mkvirtualenv $venv_name -p python3
 #workon $venv_name
-virtualenv --system-site-packages -p python3 ./$venv_name
-source ./$venv_name/bin/activate  # sh, bash, ksh, or zsh
+#virtualenv --system-site-packages -p python3 ./$venv_name
+#source ./$venv_name/bin/activate  # sh, bash, ksh, or zsh
 
 # Install pkg within the udacity env
-pip3 install --upgrade pip
-pip3 list  # show packages installed within the virtual environment
+#pip3 install --upgrade pip
+#pip3 list  # show packages installed within the virtual environment
 
 # Install OpenCV 
-pip3 install opencv-contrib-python
+#pip3 install opencv-contrib-python
 
 # Install TensorFlow 
 #if $gpu_ON
 #	pip3 install tensorflow-gpu==1.2  #Make sure version compatible with your CUDA version 
-pip3 install tensorflow
+#pip3 install tensorflow
 
 
 
