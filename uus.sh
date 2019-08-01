@@ -12,13 +12,45 @@ git_name="laygond"
 venv_name="udacity"
 gpu_ON=false 
 
-# Configure git with your account for commits
-git config --global user.email $git_email
-git config --global user.name $git_name
+# Run all options
+if [$1 = -a |--all]
+then
+  $2=-g
+  $3=-d
+  $4=-u
+fi
 
-# Update and upgrade packages
-sudo apt-get update
-sudo apt-get upgrade -y
+while [[ $# -gt 0 ]]
+do
+  key="$1"
+  case $key in
+  
+      -g|--github)
+      git config --global user.email $git_email
+      git config --global user.name $git_name
+      shift # ditch current key argument once read
+      ;;
+      
+      -d|--dropbox)
+      sudo apt-get install curl
+      curl "https://raw.github.com/andreafabrizi/Dropbox-Uploader/master/dropbox_uploader.sh" -o /tmp/dropbox_uploader.sh
+      sudo install /tmp/dropbox_uploader.sh /usr/local/bin/dropbox_uploader
+      shift # ditch current key argument once read
+      ;;
+      
+      -u|--update)
+      sudo apt-get update
+      sudo apt-get upgrade -y
+      shift # ditch current  key argument once read
+      ;;
+      
+      *)    # unknown option
+      echo "unknown option passed"
+      shift # past argument
+      ;;
+  esac
+done
+
 
 #Install tree
 sudo apt-get install tree
