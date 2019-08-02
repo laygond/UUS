@@ -13,7 +13,7 @@ venv_name="udacity"
 gpu_ON=false 
 
 # Run all options
-if [$1 = -a |--all]
+if [$1 = -a || $1 = --all]
 then
   shift # ditch current key argument once read
   $1=-g
@@ -35,7 +35,8 @@ do
       
       -d|--dropbox)
       sudo apt-get install curl
-      curl "https://raw.github.com/andreafabrizi/Dropbox-Uploader/master/dropbox_uploader.sh" -o /tmp/dropbox_uploader.sh
+      curl "https://raw.githubusercontent.com/andreafabrizi/Dropbox-Uploader/master/dropbox_uploader.sh" -o /tmp/dropbox_uploader.sh
+      sudo chmod +x /tmp/dropbox_uploader.sh
       sudo install /tmp/dropbox_uploader.sh /usr/local/bin/dropbox_uploader
       shift # ditch current key argument once read
       ;;
