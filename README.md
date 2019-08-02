@@ -12,11 +12,12 @@ Open terminal
 ```sh
  $ git clone https://github.com/laygond/UUS 
  $ sudo chmod +x uss.sh 
- $ source uss.sh [--option1] [--option2]
+ $ source UUS/uss.sh [--option1] [--option2]
 ```
 If no options are inserted then nothing happens.
 
 ## Example
+Assumming you are at /UUS then
 ```sh
  $ source uss.sh --github --update --tree
 ```
@@ -45,7 +46,31 @@ So it saves you time specially if you need to set up several accounts or install
 | --all      | -a  | run all options available | 
 | [--add_yours!] | [-?]  | [?] | 
 
-Explore uus.sh file and modify the structure to add yours!! 
+Explore `uus.sh` file and modify the structure to add yours!! 
+
+## Make This Repo YOURS FOREVER
+Get inside `uus.sh` and modify the github email and username variables to your own (I left mine there as an example)
+```
+#USER VARIABLES TO MODIFY
+git_email="laygond_bryan@hotmail.com"
+git_name="laygond"
+```
+Save and close `uus.sh`. Then at /USS run:
+```sh
+ $ source uss.sh -g
+ ```
+Now Upload it to your own (previously created) GitHub Repo:
+```sh
+ $ rm -rf .git
+ $ git init .
+ $ git remote add https://github.com/<your_github_user_name>/<your_repo_name> #Use an existing (previously created) repo 
+```
+Then just push as you would normally do to your repo
+```sh
+ $ git add -A
+ $ git commit -m "some nice comment"
+ $ git push  # You may be asked to run something else and insert password
+```
 
 ## Bash Theory to Remember
 #### Variables
