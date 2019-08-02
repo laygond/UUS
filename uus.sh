@@ -15,9 +15,11 @@ gpu_ON=false
 # Run all options
 if [$1 = -a |--all]
 then
-  $2=-g
-  $3=-d
-  $4=-u
+  shift # ditch current key argument once read
+  $1=-g
+  $2=-d
+  $3=-u
+  $4=-t
 fi
 
 while [[ $# -gt 0 ]]
@@ -44,16 +46,18 @@ do
       shift # ditch current  key argument once read
       ;;
       
+      -t|--tree)
+      sudo apt-get install tree
+      shift # ditch current key argument once read
+      ;;
+      
       *)    # unknown option
       echo "unknown option passed"
-      shift # past argument
+      shift # ditch current key argument once read
       ;;
   esac
 done
 
-
-#Install tree
-sudo apt-get install tree
 
 #echo -e "\n# virtualenv and virtualenvwrapper" >> ~/.bashrc
 #echo "export WORKON_HOME=$HOME/.virtualenvs" >> ~/.bashrc
