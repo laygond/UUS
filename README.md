@@ -11,19 +11,19 @@ It saves you time specially if you need to set up several accounts or install co
 Open terminal
 ```sh
  $ git clone https://github.com/laygond/UUS 
- $ sudo chmod +x uss.sh 
- $ source UUS/uss.sh [--option1] [--option2]
+ $ sudo chmod +x uus.sh 
+ $ source UUS/uus.sh [--option1] [--option2]
 ```
 If no options are inserted then nothing happens.
 
 ## Example
 Assumming you are at /UUS then
 ```sh
- $ source uss.sh --github --update --tree
+ $ source uus.sh --github --update --tree
 ```
 or
 ```sh
- $ source uss.sh -g -u -t
+ $ source uus.sh -g -u -t
 ```
 is equivalent to running 
 ```sh
@@ -57,7 +57,7 @@ git_name="laygond"
 ```
 Save and close `uus.sh`. Then at /USS run:
 ```sh
- $ source uss.sh -g
+ $ source uus.sh -g
  ```
 Now Upload it to your own (previously created) GitHub Repo:
 ```sh
