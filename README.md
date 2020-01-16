@@ -63,13 +63,13 @@ Now Upload it to your own (previously created) GitHub Repo:
 ```sh
  $ rm -rf .git
  $ git init .
- $ git remote add https://github.com/<your_github_user_name>/<your_repo_name> #Use an existing (previously created) repo 
+ $ git remote add origin https://github.com/<your_github_user_name>/<your_repo_name> #Use an existing (previously created) repo 
 ```
 Then just push as you would normally do to your repo
 ```sh
  $ git add -A
  $ git commit -m "some nice comment"
- $ git push  # You may be asked to run something else and insert password
+ $ git push  # You may be asked to run something else ( like --set-upstream origin master) and insert password 
 ```
 
 ## Bash Theory to Remember
