@@ -75,7 +75,7 @@ do
       sudo apt-get install gcc-6 g++-6
       sudo add-apt-repository ppa:graphics-drivers/ppa
       sudo apt-get update
-      sudo apt install nvidia-driver-410  # Check options through: <$ ubuntu-drivers devices>
+      sudo apt install nvidia-driver-396  # Check options through: <$ ubuntu-drivers devices>
       echo "You must <$ sudo reboot now> for actions to take effect and later verify installation through <$ nvidia-smi>"
       shift # ditch current key argument once read
       ;;
