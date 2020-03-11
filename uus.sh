@@ -72,7 +72,7 @@ do
       sudo add-apt-repository ppa:graphics-drivers/ppa
       sudo apt-get update
       sudo apt install nvidia-driver-396
-      sudo reboot now
+      echo "you must <sudo reboot now> for actions to take effect"
       
       *)    # unknown option
       echo "unknown option passed"
