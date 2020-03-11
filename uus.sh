@@ -67,12 +67,18 @@ do
       ;;
       
       -n|--gpu)
-      # Install NVIDIA GPU requirement and driver (:
+      # Install NVIDIA GPU requirement and driver to later install this combo: 
+      # https://www.tensorflow.org/install/source#tested_build_configurations
+      #tensorflow-gpu==1.12.0
+      #cuda==9.0 (needs gcc and g++ v6)
+      #cuDNN==7.1.4
       sudo apt-get install gcc-6 g++-6
       sudo add-apt-repository ppa:graphics-drivers/ppa
       sudo apt-get update
-      sudo apt install nvidia-driver-396
-      echo "you must <sudo reboot now> for actions to take effect"
+      sudo apt install nvidia-driver-410  # Check options through: <$ ubuntu-drivers devices>
+      echo "You must <$ sudo reboot now> for actions to take effect and later verify installation through <$ nvidia-smi>"
+      shift # ditch current key argument once read
+      ;;
       
       *)    # unknown option
       echo "unknown option passed"
