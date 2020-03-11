@@ -66,17 +66,39 @@ do
       shift # ditch current key argument once read
       ;;
       
-      -n|--gpu)
-      # Install NVIDIA GPU requirement and driver to later install this combo: 
+      # ------- Install NVIDIA GPU ---------- 
       # https://www.tensorflow.org/install/source#tested_build_configurations
+      # The folllowing build configuration combo will be installed:
       #tensorflow-gpu==1.12.0
       #cuda==9.0 (needs gcc and g++ v6)
       #cuDNN==7.1.4
-      sudo apt-get install gcc-6 g++-6
+      
+      -n|--gpu)
+      # Install NVIDIA GPU Driver
       sudo add-apt-repository ppa:graphics-drivers/ppa
       sudo apt-get update
-      sudo apt install nvidia-driver-396  # Check options through: <$ ubuntu-drivers devices>
+      sudo apt install nvidia-driver-440  # Check latest options through: <$ ubuntu-drivers devices>
       echo "You must <$ sudo reboot now> for actions to take effect and later verify installation through <$ nvidia-smi>"
+      shift # ditch current key argument once read
+      ;;
+      
+      -c|--cuda)
+      # Install CUDA Toolkit and cuDNN: 
+      # https://www.pyimagesearch.com/2019/01/30/ubuntu-18-04-install-tensorflow-and-keras-for-deep-learning/
+      #cuda==9.0 (needs gcc and g++ v6)
+      sudo apt-get install gcc-6 g++-6
+      wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run
+      sudo chmod +x cuda_9.0.176_384.81_linux-run
+      echo "In the next section"
+      echo -e "Select y for \"Install on an unsupported configuration\""
+      echo -e "Select n for \"Install NVIDIA Accelerated Graphics Driver for Linux-x86_64 384.81?\""
+      echo -e "Keep all other default values (some are y  and some are n ). For paths, just press \"enter.\""
+      sudo ./cuda_9.0.176_384.81_linux-run --override #The override uses gcc6 instead of default version
+      echo -e "\n# NVIDIA CUDA Toolkit" >> ~/.bashrc
+      echo "export PATH=/usr/local/cuda-9.0/bin:$PATH" >> ~/.bashrc
+      echo "export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64" >> ~/.bashrc
+      source ~/.bashrc
+      nvcc -V
       shift # ditch current key argument once read
       ;;
       
