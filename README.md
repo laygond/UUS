@@ -5,7 +5,7 @@ It saves you time specially if you need to set up several accounts or install co
 
 ## House Rules
 - Whenever you see `<something>` , what this means is that you are to replace this with something useful. Replace the whole thing (including the < and >).
-- Whenevery you see [something] this usually means that this something is optional. When you run the command you may put in the something or leave it out
+- Whenevery you see `[something]` this usually means that this something is optional. When you run the command you may put in the something or leave it out
 
 ## Usage
 Open terminal
