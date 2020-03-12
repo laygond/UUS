@@ -12,28 +12,21 @@ git_name="laygond"
 venv_name="udacity"
 gpu_ON=false 
 
-# Run all options
-if [$1 = -a || $1 = --all]
-then
-  shift # ditch current key argument once read
-  $1=-g
-  $2=-d
-  $3=-u
-  $4=-t
-fi
-
+# Run Options
 while [[ $# -gt 0 ]]
 do
   key="$1"
   case $key in
   
       -g|--github)
+      # Sets all your Github Info
       git config --global user.email $git_email
       git config --global user.name $git_name
       shift # ditch current key argument once read
       ;;
       
       -d|--dropbox)
+      # Upload and Download to your Dropbox from Terminal
       sudo apt-get install curl
       curl "https://raw.githubusercontent.com/andreafabrizi/Dropbox-Uploader/master/dropbox_uploader.sh" -o /tmp/dropbox_uploader.sh
       sudo chmod +x /tmp/dropbox_uploader.sh
@@ -68,10 +61,11 @@ do
       
       # ------- Install NVIDIA GPU ---------- 
       # https://www.tensorflow.org/install/source#tested_build_configurations
+      #
       # The folllowing build configuration combo will be installed:
-      #tensorflow-gpu==1.12.0
-      #cuda==9.0 (needs gcc and g++ v6)
-      #cuDNN==7.1.4
+      #       tensorflow-gpu==1.12.0
+      #       cuda==9.0 (needs gcc and g++ v6)
+      #       cuDNN==7.1.4
       
       -n|--gpu)
       # Install NVIDIA GPU Driver
@@ -85,8 +79,7 @@ do
       -c|--cuda)
       # Install CUDA Toolkit and cuDNN: 
       # https://www.pyimagesearch.com/2019/01/30/ubuntu-18-04-install-tensorflow-and-keras-for-deep-learning/
-      #cuda==9.0 (needs gcc and g++ v6)
-      sudo apt-get install gcc-6 g++-6
+      sudo apt-get install gcc-6 g++-6    #cuda==9.0 (needs gcc and g++ v6)
       wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run
       sudo chmod +x cuda_9.0.176_384.81_linux-run
       echo "In the next section"
@@ -110,9 +103,15 @@ do
 done
 
 
-#echo -e "\n# virtualenv and virtualenvwrapper" >> ~/.bashrc
-#echo "export WORKON_HOME=$HOME/.virtualenvs" >> ~/.bashrc
-
+# # Run all options
+# if [[ $1 = -a || $1 = --all ]]
+# then
+#   shift # ditch current key argument once read
+#   $1=-g
+#   $2=-d
+#   $3=-u
+#   $4=-t
+# fi
 
 #-------------------
 # Install pip3
