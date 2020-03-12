@@ -4,6 +4,8 @@
 
 #TO DO: 
 # prevent the EV to be added to .bashrc if they already exist
+# wait for user to confirm by pressing enter after reading cuda instructions
+# automate for installing latest nvidia driver
 # finish GPU tensorflow option 
 
 #USER VARIABLES TO MODIFY
@@ -11,6 +13,29 @@ git_email="laygond_bryan@hotmail.com"
 git_name="laygond"
 venv_name="udacity"
 gpu_ON=false 
+tensorflow_gpu=1.12.0
+cuda=9.0
+cuda_link=https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run
+cuDNN=7.4.1
+
+# ------- NOTES on How to Install NVIDIA GPU ---------- 
+# Check the following link to know the possible software combinations:
+# - https://www.tensorflow.org/install/source#tested_build_configurations
+#
+# Obtain cuda_link
+# 1 - go to https://developer.nvidia.com/cuda-toolkit-archive
+# 2 - perform these steps for your version https://s3-us-west-2.amazonaws.com/static.pyimagesearch.com/ubuntu1804-tf-keras/ubuntu1804_dl_install_cudatoolkit.mp4.gif 
+#
+# Download cuDNN library
+# 1 - Download cuDNN from https://developer.nvidia.com/cudnn after login in
+#     and agreeing to the terms (you need an account)
+# 2 - Click on “Archived cuDNN Releases”
+# 3 - Choose your version. For example “cuDNN (v7.4.1) for CUDA (9.0)” and “cuDNN Library for Linux”
+#
+# My reference were:
+# - https://www.pyimagesearch.com/2019/01/30/ubuntu-18-04-install-tensorflow-and-keras-for-deep-learning/
+# - https://dennisnotes.com/note/20180528-ubuntu-18.04-machine-learning-setup/
+# 
 
 # Run Options
 while [[ $# -gt 0 ]]
@@ -26,7 +51,7 @@ do
       ;;
       
       -d|--dropbox)
-      # Upload and Download to your Dropbox from Terminal
+      # Install Dropbox Uploader to upload from Terminal
       sudo apt-get install curl
       curl "https://raw.githubusercontent.com/andreafabrizi/Dropbox-Uploader/master/dropbox_uploader.sh" -o /tmp/dropbox_uploader.sh
       sudo chmod +x /tmp/dropbox_uploader.sh
@@ -58,17 +83,9 @@ do
       sudo apt-get install python3-dev python3-tk python-imaging-tk
       shift # ditch current key argument once read
       ;;
-      
-      # ------- Install NVIDIA GPU ---------- 
-      # https://www.tensorflow.org/install/source#tested_build_configurations
-      #
-      # The folllowing build configuration combo will be installed:
-      #       tensorflow-gpu==1.12.0
-      #       cuda==9.0 (needs gcc and g++ v6)
-      #       cuDNN==7.1.4
-      
+       
       -n|--gpu)
-      # Install NVIDIA GPU Driver
+      # Install latest NVIDIA GPU Driver
       sudo add-apt-repository ppa:graphics-drivers/ppa
       sudo apt-get update
       sudo apt install nvidia-driver-440  # Check latest options through: <$ ubuntu-drivers devices>
@@ -77,21 +94,39 @@ do
       ;;
       
       -c|--cuda)
-      # Install CUDA Toolkit and cuDNN: 
-      # https://www.pyimagesearch.com/2019/01/30/ubuntu-18-04-install-tensorflow-and-keras-for-deep-learning/
-      sudo apt-get install gcc-6 g++-6    #cuda==9.0 (needs gcc and g++ v6)
-      wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run
-      sudo chmod +x cuda_9.0.176_384.81_linux-run
+      # Install CUDA Toolkit 
+      if [[$cuda = 9.0]] #(needs gcc and g++ v6)
+      then
+        sudo apt-get install gcc-6 g++-6   
+      fi
+      wget $cuda_link
+      sudo chmod +x cuda_$cuda.*linux-run #example cuda_9.0.176_384.81_linux-run
       echo "In the next section"
       echo -e "Select y for \"Install on an unsupported configuration\""
       echo -e "Select n for \"Install NVIDIA Accelerated Graphics Driver for Linux-x86_64 384.81?\""
       echo -e "Keep all other default values (some are y  and some are n ). For paths, just press \"enter.\""
-      sudo ./cuda_9.0.176_384.81_linux-run --override #The override uses gcc6 instead of default version
+      sudo ./cuda_$cuda.*linux-run --override #The override uses gcc6 for cuda 9.0
+      echo "[INFO] exporting CUDA path to .bashrc... "
       echo -e "\n# NVIDIA CUDA Toolkit" >> ~/.bashrc
-      echo "export PATH=/usr/local/cuda-9.0/bin:$PATH" >> ~/.bashrc
-      echo "export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64" >> ~/.bashrc
+      echo "export PATH=/usr/local/cuda-$cuda/bin:$PATH" >> ~/.bashrc
+      echo "export LD_LIBRARY_PATH=/usr/local/cuda-$cuda/lib64" >> ~/.bashrc
       source ~/.bashrc
+      echo "[INFO] verifying installation... "
       nvcc -V
+      shift # ditch current key argument once read
+      ;;
+
+      -l|--cuDNN)
+      # Install cuDNN library
+      scp ~/Downloads/cudnn-$cuda*$cuDNN*.tgz ~
+      cd ~
+      echo "[INFO] extracting $(ls cudnn-$cuda*$cuDNN*.tgz) at $(pwd)"
+      tar -zxf cudnn-$cuda*$cuDNN*.tgz 
+      cd cuda
+      sudo cp -P lib64/* /usr/local/cuda/lib64/
+      sudo cp -P include/* /usr/local/cuda/include/
+      cd ~
+      rm cudnn-$cuda*$cuDNN*.tgz
       shift # ditch current key argument once read
       ;;
       
