@@ -6,13 +6,13 @@
 # prevent the EV to be added to .bashrc if they already exist
 # wait for user to confirm by pressing enter after reading cuda instructions
 # automate for installing latest nvidia driver
-# finish GPU tensorflow option 
+# set options for multiple GPU and install mxnet
+# set warning for installing py libraries outside venv
 
 #USER VARIABLES TO MODIFY
 git_email="laygond_bryan@hotmail.com"
 git_name="laygond"
-venv_name="udacity"
-gpu_ON=false 
+gpu_ON=true     # if false: install 'cpu' latest tensorflow  
 tensorflow_gpu=1.12.0
 cuda=9.0
 cuda_link=https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run
@@ -65,11 +65,38 @@ do
       shift # ditch current  key argument once read
       ;;
       
-      -t|--tree)
-      sudo apt-get install tree
+      -v|--pysetup)
+      # Install pip, virtualenv, and virtualenvwrapper
+      wget https://bootstrap.pypa.io/get-pip.py
+      sudo python3 get-pip.py
+      sudo pip install virtualenv virtualenvwrapper
+      sudo rm -rf get-pip.py ~/.cache/pip
+      echo "[INFO] exporting virtual env path to .bashrc... "
+      echo -e "\n# virtualenv and virtualenvwrapper" >> ~/.bashrc
+      echo "export WORKON_HOME=$HOME/.virtualenvs" >> ~/.bashrc
+      echo "export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3" >> ~/.bashrc
+      echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
+      source ~/.bashrc
       shift # ditch current key argument once read
       ;;
       
+      -b|--pylib)
+      # Install Deep Learning Python Libraries
+      pip install numpy
+      pip install opencv-contrib-python
+      pip install scipy matplotlib pillow
+      pip install h5py requests progressbar2
+      pip install scikit-learn scikit-image
+      if [[ $gpu_ON = true ]]
+      then
+        pip install tensorflow-gpu==$tensorflow_gpu
+      else
+        pip install tensorflow
+      fi
+      pip install keras
+      shift # ditch current key argument once read
+      ;;
+
       -s|--setup)
       # Install development tools, image and video I/O libraries, GUI packages, optimization libraries, and other packages:
       sudo apt-get install build-essential cmake unzip pkg-config
@@ -81,6 +108,7 @@ do
       sudo apt-get install libopenblas-dev libatlas-base-dev liblapack-dev gfortran
       sudo apt-get install libhdf5-serial-dev
       sudo apt-get install python3-dev python3-tk python-imaging-tk
+      sudo apt-get install tree
       shift # ditch current key argument once read
       ;;
        
@@ -95,7 +123,7 @@ do
       
       -c|--cuda)
       # Install CUDA Toolkit 
-      if [[$cuda = 9.0]] #(needs gcc and g++ v6)
+      if [[ $cuda = 9.0 ]] #(needs gcc and g++ v6)
       then
         sudo apt-get install gcc-6 g++-6   
       fi
@@ -105,7 +133,12 @@ do
       echo -e "Select y for \"Install on an unsupported configuration\""
       echo -e "Select n for \"Install NVIDIA Accelerated Graphics Driver for Linux-x86_64 384.81?\""
       echo -e "Keep all other default values (some are y  and some are n ). For paths, just press \"enter.\""
-      sudo ./cuda_$cuda.*linux-run --override #The override uses gcc6 for cuda 9.0
+      if [[ $cuda = 9.0 ]] 
+      then
+        sudo ./cuda_$cuda.*linux-run --override #The override uses gcc6 for cuda 9.0
+      else
+        sudo ./cuda_$cuda.*linux-run
+      fi
       echo "[INFO] exporting CUDA path to .bashrc... "
       echo -e "\n# NVIDIA CUDA Toolkit" >> ~/.bashrc
       echo "export PATH=/usr/local/cuda-$cuda/bin:$PATH" >> ~/.bashrc
@@ -130,54 +163,13 @@ do
       shift # ditch current key argument once read
       ;;
       
-      *)    # unknown option
+      *)    
+      # unknown option
       echo "unknown option passed"
       shift # ditch current key argument once read
       ;;
   esac
 done
-
-
-# # Run all options
-# if [[ $1 = -a || $1 = --all ]]
-# then
-#   shift # ditch current key argument once read
-#   $1=-g
-#   $2=-d
-#   $3=-u
-#   $4=-t
-# fi
-
-#-------------------
-# Install pip3
-#sudo apt-get install python3-pip
-
-# Install virtual environment and set environmental variables
-#sudo pip3 install -U virtualenv virtualenvwrapper
-#echo -e "\n# virtualenv and virtualenvwrapper" >> ~/.bashrc
-#echo "export WORKON_HOME=$HOME/.virtualenvs" >> ~/.bashrc
-#echo "export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3" >> ~/.bashrc
-#echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
-#source ~/.bashrc
-
-# Create Virtual Environment and activate it
-#mkvirtualenv $venv_name -p python3
-#workon $venv_name
-#virtualenv --system-site-packages -p python3 ./$venv_name
-#source ./$venv_name/bin/activate  # sh, bash, ksh, or zsh
-
-# Install pkg within the udacity env
-#pip3 install --upgrade pip
-#pip3 list  # show packages installed within the virtual environment
-
-# Install OpenCV 
-#pip3 install opencv-contrib-python
-
-# Install TensorFlow 
-#if $gpu_ON
-#	pip3 install tensorflow-gpu==1.2  #Make sure version compatible with your CUDA version 
-#pip3 install tensorflow
-
 
 
 
