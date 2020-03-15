@@ -3,15 +3,23 @@ My Universal Usual Set-up (UUS). Template shell file for common bash commands bu
 
 It saves you time specially if you need to set up several accounts or install commonly used packages in some cloud virtual machine where things get erased when you restart session.
 
+It includes Deep Learning setup for Ubuntu
+
 ## House Rules
 - Whenever you see `<something>` , what this means is that you are to replace this with something useful. Replace the whole thing (including the < and >).
 - Whenevery you see `[something]` this usually means that this something is optional. When you run the command you may put in the something or leave it out
 
-## Usage
-Open terminal
+## Setup
+Open bash terminal
 ```sh
+ $ cd ~ 
  $ git clone https://github.com/laygond/UUS 
- $ sudo chmod +x uus.sh 
+ $ sudo chmod +x UUS/uus.sh 
+```
+
+## Usage
+Load file in terminal once through source
+```sh
  $ source UUS/uus.sh [--option1] [--option2]
 ```
 If no options are inserted then nothing happens.
@@ -19,11 +27,11 @@ If no options are inserted then nothing happens.
 ## Example
 Assumming you are at /UUS then
 ```sh
- $ source uus.sh --github --update --tree
+ $ source uus.sh --github --update
 ```
 or
 ```sh
- $ source uus.sh -g -u -t
+ $ source uus.sh -g -u
 ```
 is equivalent to running 
 ```sh
@@ -31,7 +39,6 @@ is equivalent to running
  $ git config --global user.name <your_git_name>
  $ sudo apt-get update
  $ sudo apt-get upgrade -y 
- $ sudo apt-get install tree
 ```
 So it saves you time specially if you need to set up several accounts or install commonly used packages in some cloud virtual machine where things get erased when you restart session.
 
