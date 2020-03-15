@@ -112,7 +112,7 @@ do
       shift # ditch current key argument once read
       ;;
        
-      -n|--gpu)
+      -gpu|--gpu)
       # Install latest NVIDIA GPU Driver
       sudo add-apt-repository ppa:graphics-drivers/ppa
       sudo apt-get update
@@ -121,7 +121,7 @@ do
       shift # ditch current key argument once read
       ;;
       
-      -c|--cuda)
+      -cuda|--cuda)
       # Install CUDA Toolkit 
       if [[ $cuda = 9.0 ]] #(needs gcc and g++ v6)
       then
@@ -146,10 +146,11 @@ do
       source ~/.bashrc
       echo "[INFO] verifying installation... "
       nvcc -V
+      rm cuda_$cuda.*linux-run
       shift # ditch current key argument once read
       ;;
 
-      -l|--cuDNN)
+      -cudnn|-cuDNN|--cudnn|--cuDNN)
       # Install cuDNN library
       scp ~/Downloads/cudnn-$cuda*$cuDNN*.tgz ~
       cd ~
@@ -160,6 +161,24 @@ do
       sudo cp -P include/* /usr/local/cuda/include/
       cd ~
       rm cudnn-$cuda*$cuDNN*.tgz
+      shift # ditch current key argument once read
+      ;;
+
+      -f|--favorite)
+      # Install favorite Browser, Editor, etc
+      wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      sudo apt install ./google-chrome-stable_current_amd64.deb
+      rm google-chrome-stable_current_amd64.deb
+      shift # ditch current key argument once read
+      ;;
+
+      -cmd|-unix|--cmd|--unix)
+      # Add MY CUSTOM UNIX COMMANDS shortcuts
+      sudo chmod +x ~/UUS/.my_custom_unix_commands.sh
+      echo "[INFO] loading MY CUSTOM UNIX COMMANDS to .bashrc... "
+      echo -e "\n# MY CUSTOM UNIX COMMANDS" >> ~/.bashrc
+      echo "source ~/UUS/.my_custom_unix_commands.sh" >> ~/.bashrc
+      echo "[INFO] Done! Now restart terminal or open new"
       shift # ditch current key argument once read
       ;;
       
