@@ -1,15 +1,36 @@
+[//]: # (Image References)
+[image1]: ./README_images/demo.gif
+
 # UUS
-My Universal Usual Set-up (UUS). Template shell file for common bash commands bundled together for a faster and easier set up.
+My Universal Usual Set-up (UUS). This is a template shell file for common bash commands bundled together for a faster and easier set up. Modify this template as you wish.
 
-It saves you time specially if you need to set up several accounts or install commonly used packages in some cloud virtual machine where things get erased when you restart session.
+It includes all commands to set up Ubuntu 18.04 for Deep Learning with GPU
 
-It includes Deep Learning setup for Ubuntu
+![alt text][image1]
+
+Trust me! It saves you time specially if you need to set up several accounts or install commonly used packages in some cloud virtual machine where things get erased when you restart session.
+
+## Directory Structure
+```
+.UUS
+├── README.md
+├── README_images                 # Images used by README.md
+|   └── ...
+├── uus.sh                        # main file
+├── config.sh                     # user configuration file
+└──.my_custom_unix_commands.sh    # personal list of bash commands
+```
+
+Then main goal here is to be productive so feel free to modify anything:
+- `uus.sh` holds snippets of code to run in small batches. I added a favorite option so that you can add your favorite editor, browser, etc.
+- `config.sh` must be modified according to the user. It holds the git credentials, cuda version, gpu flag, url links, etc. (I left mine there as an example)
+- `.my_custom_unix_commands.sh` a place you can store your own personal unix commands while having a backup in GitHub. It is run by `uus.sh` through an option. 
 
 ## House Rules
 - Whenever you see `<something>` , what this means is that you are to replace this with something useful. Replace the whole thing (including the < and >).
 - Whenevery you see `[something]` this usually means that this something is optional. When you run the command you may put in the something or leave it out
 
-## Setup
+## One time Setup
 Open bash terminal
 ```sh
  $ cd ~ 
@@ -18,20 +39,23 @@ Open bash terminal
 ```
 
 ## Usage
-Load file in terminal once through source
+Always source file each time a new terminal session is open
 ```sh
- $ source UUS/uus.sh [--option1] [--option2]
+ $ source ~/UUS/uus.sh
+```
+Now enjoy the commands (Option List below)
+```sh
+ $ uus [--option1] [--option2]
 ```
 If no options are inserted then nothing happens.
 
 ## Example
-Assumming you are at /UUS then
 ```sh
- $ source uus.sh --github --update
+ $ uus --github --update
 ```
 or
 ```sh
- $ source uus.sh -g -u
+ $ uus -g -u
 ```
 is equivalent to running 
 ```sh
@@ -40,33 +64,45 @@ is equivalent to running
  $ sudo apt-get update
  $ sudo apt-get upgrade -y 
 ```
-So it saves you time specially if you need to set up several accounts or install commonly used packages in some cloud virtual machine where things get erased when you restart session.
 
 ## Options Available
 
-| Long Name  | Short Name | Description |
+| Long Dash  | Short Dash | Description |
 | ---------- | ---------- | ----------- |
-| --github   | -g  | initializes email and username to git config | 
-| --dropbox  | -d  | install and sets up dropbox uploader: uploads to dropbox from terminal | 
-| --update   | -u  | ubuntu's update and upgrade of packages | 
-| --tree     | -t  | install tree: outputs directory tree structure | 
-| --all      | -a  | run all options available | 
+| --github   | -g     | initializes email and username to git config | 
+| --dropbox  | -d     | install and sets up dropbox uploader: uploads to dropbox from terminal | 
+| --update   | -u     | ubuntu's update and upgrade of packages | 
+| --pysetup  | -v     | install pip, virtualenv, and virtualenvwrapper |
+| --pylib    | -b     | install Deep Learning Python Libraries |
+| --setup    | -s     | install ubuntu development tools, image and video I/O libraries, GUI packages, optimization libraries, and other packages |
+| --gpu      | -gpu   | install latest NVIDIA GPU Driver |
+| --cuda     | -cuda  | install CUDA Toolkit |
+| --cudnn    | -cudnn | install cuDNN library |
+| --favorite | -f     | install favorite Browser, Editor, etc |
+| --cmd, --unix | -cmd, -unix | sets up your CUSTOM UNIX COMMANDS shortcuts |     
 | [--add_yours!] | [-?]  | [?] | 
 
 Explore `uus.sh` file and modify the structure to add yours!! 
 
-## Make This Repo YOURS FOREVER
-Get inside `uus.sh` and modify the github email and username variables to your own (I left mine there as an example)
-```
-#USER VARIABLES TO MODIFY
-git_email="laygond_bryan@hotmail.com"
-git_name="laygond"
-```
-Save and close `uus.sh`. Then at /USS run:
+## Set up Ubuntu for Deep Learning (Example)
 ```sh
- $ source uus.sh -g
- ```
-Now Upload it to your own (previously created) GitHub Repo:
+ $ uus -u
+ $ uus -s
+ $ uus -gpu
+ $ uus -cuda
+ $ uus -cudnn
+ $ uus --pysetup
+ $ mkvirtualenv myDeepEnv -p python3
+ $ uus --pylib
+ # Extra
+ $ uus -g -d -f
+ $ uus -cmd  
+```
+
+# Extra
+## Make This Repo YOURS FOREVER
+Create a new empty github repo and call it <your_repo_name>
+Now return to where you cloned UUS and `$cd UUS`:
 ```sh
  $ rm -rf .git
  $ git init .
