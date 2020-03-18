@@ -87,6 +87,7 @@ function uus() {
         sudo apt-get install libhdf5-serial-dev
         sudo apt-get install python3-dev python3-tk python-imaging-tk
         sudo apt-get install tree
+        sudo apt-get install curl wget lynx w3m
         shift # ditch current key argument once read
         ;;
         
@@ -143,10 +144,19 @@ function uus() {
         ;;
         
         -f|--favorite)
-        # Install favorite Browser, Editor, etc
+        # Install favorite Browser, Editor, VNC, etc
+        echo "[INFO] Installing Browser... "
         wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
         sudo apt install ./google-chrome-stable_current_amd64.deb
         rm google-chrome-stable_current_amd64.deb
+        echo "[INFO] Installing Real-VNC Server... "
+        wget $(lynx -listonly -nonumbers -dump https://www.realvnc.com/en/connect/download/vnc/linux/ | grep Linux-x64.deb | head -n 1)
+        sudo apt install ./VNC-Server-*-Linux-x64.deb
+        rm VNC-Server-*-Linux-x64.deb
+        echo "[INFO] Installing Real-VNC Client... "
+        wget $(lynx -listonly -nonumbers -dump https://www.realvnc.com/en/connect/download/viewer/linux/ | grep Linux-x64.deb | head -n 1)
+        sudo apt install ./VNC-Viewer-*-Linux-x64.deb
+        rm VNC-Viewer-*-Linux-x64.deb
         shift # ditch current key argument once read
         ;;
         
