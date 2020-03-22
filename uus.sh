@@ -157,6 +157,17 @@ function uus() {
         wget $(lynx -listonly -nonumbers -dump https://www.realvnc.com/en/connect/download/viewer/linux/ | grep Linux-x64.deb | head -n 1)
         sudo apt install ./VNC-Viewer-*-Linux-x64.deb
         rm VNC-Viewer-*-Linux-x64.deb
+        echo "[INFO] Installing Team Viewer... "
+        wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
+        sudo apt install ./teamviewer_amd64.deb
+        rm teamviewer*.deb
+        shift # ditch current key argument once read
+        ;;
+
+        -hack|--hack)
+        # Install hacking tools
+        sudo apt-get install hydra
+        sudo apt-get install nmap
         shift # ditch current key argument once read
         ;;
         
