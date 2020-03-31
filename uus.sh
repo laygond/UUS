@@ -30,7 +30,6 @@ function uus() {
         
         -d|--dropbox)
         # Install Dropbox Uploader to upload from Terminal
-        sudo apt-get install curl
         curl "https://raw.githubusercontent.com/andreafabrizi/Dropbox-Uploader/master/dropbox_uploader.sh" -o /tmp/dropbox_uploader.sh
         sudo chmod +x /tmp/dropbox_uploader.sh
         sudo install /tmp/dropbox_uploader.sh /usr/local/bin/dropbox_uploader
@@ -161,6 +160,9 @@ function uus() {
         wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
         sudo apt install ./teamviewer_amd64.deb
         rm teamviewer*.deb
+        echo "[INFO] Installing OpenSSH... "
+        sudo apt install openssh-server
+        sudo ufw allow ssh
         shift # ditch current key argument once read
         ;;
 
