@@ -130,3 +130,4 @@ Then just push as you would normally do to your repo
 - $LINENO - Returns the current line number in the Bash script.
 
 More Info on Bash Here: [TUTORIAL](https://ryanstutorials.net/bash-scripting-tutorial/)
+Unix commands reference: [LINK](https://www.cs.bu.edu/teaching/unix/reference/commands.html)
