@@ -41,9 +41,26 @@ function usbinfo() {
   sudo cat /sys/kernel/debug/usb/devices
 }
 
+# Check Volume info
+function volumeinfo() {
+  lsblk
+  df -h
+}
+
 # Check Devices in Network
 function fing() {
   GATEWAY=$(hostname -I | cut -d'.' -f-3) #-3 Since IPv4
   GATEWAY="$GATEWAY.0"
   nmap -sP $GATEWAY/24
+}
+
+# Format Mass Storage or Volume
+function format() {
+  if [[ $# -eq 1 ]]
+  then
+    sudo umount $1
+    sudo mkfs.vfat $1
+  else
+    echo "Just one argument allowed: insert volume storage name"
+  fi
 }

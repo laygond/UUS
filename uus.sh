@@ -163,6 +163,9 @@ function uus() {
         echo "[INFO] Installing OpenSSH... "
         sudo apt install openssh-server
         sudo ufw allow ssh
+        echo "[INFO] Installing Kite Extension for VS Code... " #MyPy and SonarLint?
+        bash -c "$(wget -q -O – https://linux.kite.com/dls/linux/current)"
+        code --install-extension kiteco.kite 
         shift # ditch current key argument once read
         ;;
 
