@@ -41,6 +41,22 @@ function usbinfo() {
   sudo cat /sys/kernel/debug/usb/devices
 }
 
+# Check CUDA info
+function cudainfo() {
+  cat /usr/local/cuda/version.txt
+  nvcc --version
+}
+
+# Check cuDNN info
+function cudnninfo() {
+  echo "cuDNN $(cat /usr/local/cuda/include/cudnn.h | grep "#define CUDNN_MAJOR" -A 2 | grep -oE '[^[:space:]]+$'| paste -s -d ".")"
+}
+
+# Check GPU info
+function gpuinfo() {
+  nvidia-smi
+}
+
 # Check Volume info
 function volumeinfo() {
   lsblk

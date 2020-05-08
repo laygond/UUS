@@ -67,6 +67,7 @@ function uus() {
         if [[ $gpu_ON = true ]]
         then
           pip install tensorflow-gpu==$tensorflow_gpu
+          export TF_CPP_MIN_LOG_LEVEL=2 # Remove Modern CPU Extension Warnings (SSE4.1, SSE4.2, AVX, AVX2, FMA, etc.)
         else
           pip install tensorflow
         fi
