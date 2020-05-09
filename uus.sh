@@ -131,15 +131,28 @@ function uus() {
         
         -cudnn|-cuDNN|--cudnn|--cuDNN)
         # Install cuDNN library
-        scp ~/Downloads/cudnn-$cuda*$cuDNN*.tgz ~
-        cd ~
-        echo "[INFO] extracting $(ls cudnn-$cuda*$cuDNN*.tgz) at $(pwd)"
-        tar -zxf cudnn-$cuda*$cuDNN*.tgz 
-        cd cuda
-        sudo cp -P lib64/* /usr/local/cuda/lib64/
-        sudo cp -P include/* /usr/local/cuda/include/
-        cd ~
-        rm cudnn-$cuda*$cuDNN*.tgz
+        if [[ -d "/usr/local/cuda/include" ]] 
+        then
+          echo "[INFO] Removing previous CuDNN version"
+          sudo rm -f /usr/local/cuda/include/cudnn.h 
+          sudo rm -rf /usr/local/cuda/lib64/libcudnn*
+        fi
+        current_dir=$(pwd)
+        cd ~/Downloads/
+        [[ -d "cuda" ]] && sudo rm -rf cuda
+        if [[ -e $(ls cudnn-$cuda*$cuDNN*.tgz) ]]
+        then 
+          echo "[INFO] extracting $(ls cudnn-$cuda*$cuDNN*.tgz) at $(pwd)"
+          tar -zxf cudnn-$cuda*$cuDNN*.tgz 
+          cd cuda
+          sudo cp -P lib64/* /usr/local/cuda/lib64/
+          sudo cp -P include/* /usr/local/cuda/include/
+          echo "[INFO] CuDNN Installation Complete"
+          cd $current_dir
+        else
+          echo "[INFO] The CuDNN must be downloaded. Read config.sh for steps"
+          echo "[INFO] Installation incomplete"
+        fi
         shift # ditch current key argument once read
         ;;
         

@@ -2,9 +2,9 @@
 [image1]: ./README_images/demo.gif
 
 # UUS
-My Universal Usual Set-up (UUS). This is a template shell file for common bash commands bundled together for a faster and easier set up. Modify this template as you wish.
+My Ubuntu Usual Set-up (UUS). This is a template shell file for common bash commands bundled together for a faster and easier set up. Modify this template as you wish.
 
-It includes all commands to set up Ubuntu 18.04 for Deep Learning with GPU
+It includes all commands to set up Ubuntu 18.04 for Deep Learning with GPU. Read `config.sh` for instructions.
 
 ![alt text][image1]
 
