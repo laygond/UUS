@@ -79,7 +79,7 @@ is equivalent to running
 | --cuda     | -cuda  | install CUDA Toolkit |
 | --cudnn    | -cudnn | install cuDNN library |
 | --favorite | -f     | install favorite Browser, Editor, etc |
-| --cmd, --unix | -cmd, -unix | sets up your CUSTOM UNIX COMMANDS shortcuts |     
+| --custom   | -custom | sets up your CUSTOM UNIX COMMANDS shortcuts |     
 | [--add_yours!] | [-?]  | [?] | 
 
 Explore `uus.sh` file and modify the structure to add yours!! 
@@ -95,8 +95,10 @@ Explore `uus.sh` file and modify the structure to add yours!!
  $ mkvirtualenv myDeepEnv -p python3
  $ uus --pylib
  # Extra
- $ uus -g -d -f
- $ uus -cmd  
+ $ uus -j # must be within myDeepEnv
+ $ deactivate
+ $ uus -g -d -f 
+ $ uus -custom  
 ```
 
 # Extra

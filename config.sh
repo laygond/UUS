@@ -27,4 +27,5 @@ cuDNN=7.6.4 #7.4.1
 # - https://www.pyimagesearch.com/2019/01/30/ubuntu-18-04-install-tensorflow-and-keras-for-deep-learning/
 # - https://dennisnotes.com/note/20180528-ubuntu-18.04-machine-learning-setup/
 # - https://stackoverflow.com/questions/47068709/your-cpu-supports-instructions-that-this-tensorflow-binary-was-not-compiled-to-u
+# - https://code.tutsplus.com/tutorials/understanding-virtual-environments-in-python--cms-28272
 #

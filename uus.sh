@@ -10,8 +10,9 @@
 # set warning for installing py libraries outside venv
 
 # Load User Configuration File
-sudo chmod +x UUS/config.sh
-source UUS/config.sh
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+sudo chmod +x $DIR/config.sh
+source $DIR/config.sh
 
 # Run Options
 function uus() {
@@ -36,6 +37,18 @@ function uus() {
         shift # ditch current key argument once read
         ;;
         
+        -j|--jupyter)
+        # Install Jupyter within an environment
+        echo "[INFO] Installing Jupyter Lab... " 
+        pip install jupyterlab
+        echo -e "\n# Jupyter Lab/Notebook" >> ~/.bashrc
+        echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc
+        pip install ipykernel
+        python -m ipykernel install --user --name $(echo $VIRTUAL_ENV | rev | cut -d '/' -f 1 | rev)
+        jupyter kernelspec list
+        shift # ditch current key argument once read
+        ;;
+
         -u|--update)
         sudo apt-get update
         sudo apt-get upgrade -y
@@ -67,7 +80,8 @@ function uus() {
         if [[ $gpu_ON = true ]]
         then
           pip install tensorflow-gpu==$tensorflow_gpu
-          export TF_CPP_MIN_LOG_LEVEL=2 # Remove Modern CPU Extension Warnings (SSE4.1, SSE4.2, AVX, AVX2, FMA, etc.)
+          echo -e "\n# Remove Modern CPU Extension Warnings (SSE4.1, SSE4.2, AVX, AVX2, FMA, etc.)" >> ~/.bashrc
+          echo "export TF_CPP_MIN_LOG_LEVEL=2" >> ~/.bashrc
         else
           pip install tensorflow
         fi
@@ -120,7 +134,7 @@ function uus() {
         fi
         echo "[INFO] exporting CUDA path to .bashrc... "
         echo -e "\n# NVIDIA CUDA Toolkit" >> ~/.bashrc
-        echo "export PATH=/usr/local/cuda-$cuda/bin:$PATH" >> ~/.bashrc
+        echo "export PATH=/usr/local/cuda-$cuda/bin:\$PATH" >> ~/.bashrc
         echo "export LD_LIBRARY_PATH=/usr/local/cuda-$cuda/lib64" >> ~/.bashrc
         source ~/.bashrc
         echo "[INFO] verifying installation... "
@@ -180,6 +194,8 @@ function uus() {
         echo "[INFO] Installing Kite Extension for VS Code... " #MyPy and SonarLint?
         bash -c "$(wget -q -O – https://linux.kite.com/dls/linux/current)"
         code --install-extension kiteco.kite 
+        echo "[INFO] Installing Krita Paint App for Linux... " 
+        sudo apt install krita
         shift # ditch current key argument once read
         ;;
 
@@ -190,12 +206,12 @@ function uus() {
         shift # ditch current key argument once read
         ;;
         
-        -cmd|-unix|--cmd|--unix)
+        -custom|--custom)
         # Add MY CUSTOM UNIX COMMANDS shortcuts
         sudo chmod +x ~/UUS/.my_custom_unix_commands.sh
         echo "[INFO] loading MY CUSTOM UNIX COMMANDS to .bashrc... "
         echo -e "\n# MY CUSTOM UNIX COMMANDS" >> ~/.bashrc
-        echo "source ~/UUS/.my_custom_unix_commands.sh" >> ~/.bashrc
+        echo "source $DIR/.my_custom_unix_commands.sh" >> ~/.bashrc
         echo "[INFO] Done! Now restart terminal or open new"
         shift # ditch current key argument once read
         ;;
