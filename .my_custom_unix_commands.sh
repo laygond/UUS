@@ -21,6 +21,17 @@ function clone() {
   fi
 }
 
+# Open a Python Playground
+function pyground() {
+  if [[ -e ~/playground.py ]]
+  then
+    code ~/playground.py
+  else
+    touch ~/playground.py
+    code ~/playground.py
+  fi
+}
+
 # Check CPU info
 function cpuinfo() {
   cat /proc/cpuinfo
