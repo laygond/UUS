@@ -196,6 +196,20 @@ function uus() {
         code --install-extension kiteco.kite 
         echo "[INFO] Installing Krita Paint App for Linux... " 
         sudo apt install krita
+        echo "[INFO] Installing OBS Studio for Linux... "
+        sudo apt install ffmpeg 
+        sudo add-apt-repository ppa:obsproject/obs-studio
+        sudo apt update
+        sudo apt install obs-studio
+        shift # ditch current key argument once read
+        ;;
+
+        -obs|--obs)
+        echo "[INFO] Installing OBS Studio for Linux... "
+        sudo apt install ffmpeg 
+        sudo add-apt-repository ppa:obsproject/obs-studio
+        sudo apt update
+        sudo apt install obs-studio
         shift # ditch current key argument once read
         ;;
 
