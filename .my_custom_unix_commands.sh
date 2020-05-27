@@ -74,6 +74,11 @@ function volumeinfo() {
   df -h
 }
 
+# Check Ports info
+function portinfo() {
+  sudo netstat -tulpn
+}
+
 # Check Devices in Network
 function fing() {
   GATEWAY=$(hostname -I | cut -d'.' -f-3) #-3 Since IPv4
