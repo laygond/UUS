@@ -96,3 +96,26 @@ function format() {
     echo "Just one argument allowed: insert volume storage name"
   fi
 }
+
+# Apply command to all elements in list non-stopping
+# map COMMAND: ITEM1 ITEM2 ITEM3 ...
+# "map pip install: $(cat requirements.txt)"
+# The space following the colon is required. Space preceding is optional.
+function map (){
+    local command i rep
+    if [ $# -lt 2 ] || [[ ! "$@" =~ :[[:space:]] ]];then
+        echo "Invalid syntax." >&2; return 1
+    fi
+    until [[ $1 =~ : ]]; do
+        command="$command $1"; shift
+    done
+    command="$command ${1%:}"; shift
+    for i in "$@"; do
+        if [[ $command =~ \{\} ]];then
+            rep="${command//\{\}/\"$i\"}"
+            eval "${rep//\\/\\\\}"
+        else
+            eval "${command//\\/\\\\} \"${i//\\/\\\\}\""
+        fi
+    done
+}
