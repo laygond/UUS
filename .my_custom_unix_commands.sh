@@ -52,6 +52,7 @@ function osinfo() {
 function usbinfo() {
   sudo cat /sys/kernel/debug/usb/devices
 
+  echo -e "\n Paths"
   for sysdevpath in $(find /sys/bus/usb/devices/usb*/ -name dev); do
   (
     syspath="${sysdevpath%/dev}"
