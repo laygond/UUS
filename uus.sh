@@ -169,6 +169,72 @@ function uus() {
         fi
         shift # ditch current key argument once read
         ;;
+
+        -cv|--cv)
+        # Install GPU OpenCV
+        echo "[INFO] Collect OpenCV"
+        # !!!!!!!UPDATE TO COLLECT LATEST Versions unless version specified
+        cd ~
+        if [[ ! -d "opencv" ]]
+        then
+          echo "[INFO] Collecting opencv..."
+          wget -O opencv.zip https://github.com/opencv/opencv/archive/4.2.0.zip
+          unzip opencv.zip
+          rm opencv.zip
+          mv opencv-4.2.0 opencv
+        fi
+        if [[ ! -d "opencv_contrib" ]]
+        then
+          echo "[INFO] Collecting opencv contrib..."
+          wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.2.0.zip
+          unzip opencv_contrib.zip
+          rm opencv_contrib.zip
+          mv opencv_contrib-4.2.0 opencv_contrib
+        fi
+        if [[ $VIRTUAL_ENV == "" ]]
+        then
+          echo "[ERROR] Please turn on a python virtual environment"
+        else
+          echo "[INFO] Creating a build to compile... "
+          echo "[INFO] Take note of the \"install path\""
+          cd opencv
+          if [[ -d "build" ]]
+          then
+            rm -rf build
+          fi
+          mkdir build
+          cd build
+          cmake -D CMAKE_BUILD_TYPE=RELEASE \
+            -D CMAKE_INSTALL_PREFIX=/usr/local \
+            -D INSTALL_PYTHON_EXAMPLES=ON \
+            -D INSTALL_C_EXAMPLES=OFF \
+            -D OPENCV_ENABLE_NONFREE=ON \
+            -D WITH_CUDA=ON \
+            -D WITH_CUDNN=ON \
+            -D OPENCV_DNN_CUDA=ON \
+            -D ENABLE_FAST_MATH=1 \
+            -D CUDA_FAST_MATH=1 \
+            -D CUDA_ARCH_BIN=$gpu_architecture \
+            -D WITH_CUBLAS=1 \
+            -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
+            -D HAVE_opencv_python3=ON \
+            -D PYTHON_EXECUTABLE=~/.virtualenvs/$(echo $VIRTUAL_ENV | rev | cut -d '/' -f 1 | rev)/bin/python \
+            -D BUILD_EXAMPLES=ON ..
+          make
+          sudo make install
+          sudo ldconfig
+          echo "[INFO] Installation Complete"
+          echo "[INFO] Sym-link OpenCV library into current virtual env..."
+          if [[ -d /usr/local/lib/python3*/site-packages/cv2/python-3* ]]
+          then
+            cd $VIRTUAL_ENV/lib/python3*/site-packages/
+            ln -s /usr/local/lib/python3*/site-packages/cv2/python-3*/*.so cv2.so
+          else
+            echo "[Error] Sym-link failed: OpenCV install path might be different so link manually instead"
+          fi
+        fi
+        shift # ditch current key argument once read
+        ;;
         
         -f|--favorite)
         # Install favorite Browser, Editor, VNC, etc
