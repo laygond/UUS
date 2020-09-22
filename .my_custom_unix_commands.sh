@@ -78,17 +78,24 @@ function cudnninfo() {
 
 # Check GPU info
 function gpuinfo() {
+  echo "[INFO] Command: nvidia-smi"
   nvidia-smi
 }
 
 # Check Volume info
 function volumeinfo() {
+  echo "[INFO] Command: lsblk"
   lsblk
+  echo "[INFO] Command: df -h"
   df -h
+  echo "[INFO] Command: sudo lvmdiskscan"
+  sudo lvmdiskscan
+  echo "[INFO] To see used space at current directory try: du -sh"
 }
 
-# Check Ports info
+# Check Network Ports info
 function portinfo() {
+  echo "[INFO] Command: sudo netstat -tulpn"
   sudo netstat -tulpn
 }
 
