@@ -6,6 +6,12 @@
 
 # --------- CUSTOM COMMANDS by Bryan Laygond (personal) -----------
 
+# Speed Alias
+alias cd..='cd ..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
 # Open Dropbox Paper Notes in Chrome
 function paper() {
   google-chrome https://paper.dropbox.com/folder/show/Tutorials-e.1gg8YzoPEhbTkrhvQwJ2zzxOY3ofXnw0n4dMNrcQppzTfcD5Utlp
@@ -17,7 +23,19 @@ function clone() {
   then
     git clone "https://github.com/laygond/$1.git"
   else
-    echo "Just one argument allowed: insert repo name"
+    echo "[ERROR] Just one argument allowed: insert repo name"
+  fi
+}
+
+# Push to GitHub faster
+function push() {
+  if [[ $# -eq 1 ]]
+  then
+    git add .
+    git commit -m "$1"
+    git push
+  else
+    echo "[ERROR] Just one argument allowed: insert commit comment"
   fi
 }
 
@@ -34,16 +52,19 @@ function pyground() {
 
 # Check CPU info
 function cpuinfo() {
+  echo "[INFO] Command: cat /proc/cpuinfo"
   cat /proc/cpuinfo
 }
 
 # Check Kernel info
 function kernelinfo() {
+  echo "[INFO] Command: uname -a"
   uname -a
 }
 
 # Check OS info
 function osinfo() {
+  echo "[INFO] Command: cat /etc/os-release"
   cat /etc/os-release
 }
 
