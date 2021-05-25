@@ -17,7 +17,7 @@ print("[INFO] List of hardware names")
 def get_available_hardware():
     local_device_protos = device_lib.list_local_devices()
     return [x.name for x in local_device_protos]
-print("[INFO] ",*get_available_hardware())
+print("[INFO] ",get_available_hardware())
 
 # ----- GPU Support
 # Returns whether TensorFlow was built with GPU (i.e. CUDA or ROCm) support.
@@ -33,13 +33,13 @@ print("[INFO] ",tf.test.is_built_with_cuda())
 # Physical devices are hardware devices present on the host machine. By default all discovered CPU and GPU devices are considered visible.
 # Accessed prior to runtime initialization
 print("[INFO] List Physical Devices")
-print("[INFO] ",tf.config.list_physical_devices('GPU') )
+print("[INFO] ",tf.config.experimental.list_physical_devices())
 
 # ------ Logical Devices
 # Logical devices may correspond to physical devices or remote devices in the cluster. 
 # It starts at runtime
 print("[INFO] List Logical Devices")
-print("[INFO] ",tf.config.list_logical_devices('GPU'))
+print("[INFO] ",tf.config.experimental.list_logical_devices())
 
 # ------ Test CPU
 # Place tensors on the CPU

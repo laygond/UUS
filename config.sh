@@ -5,9 +5,9 @@ git_email="laygond_bryan@hotmail.com"
 git_name="laygond"
 gpu_ON=true     # if false: install 'cpu' latest tensorflow  
 tensorflow_gpu=1.12.0
-cuda=9.0
+cuda=10.0
 cuda_link=https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run
-cuDNN=7.6.4 #7.4.1
+cuDNN=7.6.5 #7.4.1
 gpu_architecture=7.5
 
 # ------- NOTES on How to Install NVIDIA GPU ---------- 

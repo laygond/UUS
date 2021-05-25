@@ -50,6 +50,11 @@ function pyground() {
   fi
 }
 
+# Open My Custom Unix Commands (this file)
+function mycmd() {
+  code $(dirname ${BASH_SOURCE[0]})
+}
+
 # Check CPU info
 function cpuinfo() {
   echo "[INFO] Command: cat /proc/cpuinfo"
@@ -101,6 +106,8 @@ function cudnninfo() {
 function gpuinfo() {
   echo "[INFO] Command: nvidia-smi"
   nvidia-smi
+  echo "[INFO] For more information try "
+  echo "[INFO] Command: nvidia-settings"
 }
 
 # Check Volume info

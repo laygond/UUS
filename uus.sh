@@ -73,7 +73,6 @@ function uus() {
         -b|--pylib)
         # Install Deep Learning Python Libraries
         pip install numpy
-        pip install opencv-contrib-python
         pip install scipy matplotlib pillow
         pip install h5py requests progressbar2
         pip install scikit-learn scikit-image
