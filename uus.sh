@@ -106,9 +106,9 @@ function uus() {
         
         -gpu|--gpu)
         # Install latest NVIDIA GPU Driver
-        sudo add-apt-repository ppa:graphics-drivers/ppa
+        sudo add-apt-repository ppa:graphics-drivers/ppa #TODO: Install once
         sudo apt-get update
-        sudo apt install nvidia-driver-440  # Check latest options through: <$ ubuntu-drivers devices>
+        sudo apt install nvidia-driver-460  #TODO: Check latest options through: <$ ubuntu-drivers devices>
         echo "You must <$ sudo reboot now> for actions to take effect and later verify installation through <$ nvidia-smi>"
         shift # ditch current key argument once read
         ;;
@@ -120,16 +120,16 @@ function uus() {
           sudo apt-get install gcc-6 g++-6   
         fi
         wget $cuda_link
-        sudo chmod +x cuda_$cuda.*linux-run #example cuda_9.0.176_384.81_linux-run
+        sudo chmod +x cuda_$cuda.*linux*run #example cuda_9.0.176_384.81_linux-run
         echo "In the next section"
         echo -e "Select y for \"Install on an unsupported configuration\""
         echo -e "Select n for \"Install NVIDIA Accelerated Graphics Driver for Linux-x86_64 384.81?\""
         echo -e "Keep all other default values (some are y  and some are n ). For paths, just press \"enter.\""
         if [[ $cuda = 9.0 ]] 
         then
-          sudo ./cuda_$cuda.*linux-run --override #The override uses gcc6 for cuda 9.0
+          sudo ./cuda_$cuda.*linux*run --override #The override uses gcc6 for cuda 9.0
         else
-          sudo ./cuda_$cuda.*linux-run
+          sudo ./cuda_$cuda.*linux*run
         fi
         echo "[INFO] exporting CUDA path to .bashrc... "
         echo -e "\n# NVIDIA CUDA Toolkit" >> ~/.bashrc

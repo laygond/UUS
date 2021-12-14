@@ -59,6 +59,8 @@ function mycmd() {
 function cpuinfo() {
   echo "[INFO] Command: cat /proc/cpuinfo"
   cat /proc/cpuinfo
+  echo "[INFO] Command: sensors"
+  sensors
 }
 
 # Check Kernel info
@@ -142,6 +144,18 @@ function format() {
     sudo mkfs.vfat $1
   else
     echo "Just one argument allowed: insert volume storage name"
+  fi
+}
+
+# Create train, val, test directory structure
+function mk3dir() {
+  if [[ $# -eq 1 ]]
+  then
+    mkdir -p $1/train
+    mkdir -p $1/val
+    mkdir -p $1/test
+  else
+    echo "Just one argument allowed: insert folder name"
   fi
 }
 

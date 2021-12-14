@@ -5,9 +5,9 @@ git_email="laygond_bryan@hotmail.com"
 git_name="laygond"
 gpu_ON=true     # if false: install 'cpu' latest tensorflow  
 tensorflow_gpu=1.12.0
-cuda=10.0
-cuda_link=https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run
-cuDNN=7.6.5 #7.4.1
+cuda=10.1
+cuda_link='https://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run'
+cuDNN=8.0.5 
 gpu_architecture=7.5
 
 # ------- NOTES on How to Install NVIDIA GPU ---------- 
@@ -16,7 +16,7 @@ gpu_architecture=7.5
 #
 # Obtain cuda_link
 # 1 - go to https://developer.nvidia.com/cuda-toolkit-archive
-# 2 - perform these steps for your version https://s3-us-west-2.amazonaws.com/static.pyimagesearch.com/ubuntu1804-tf-keras/ubuntu1804_dl_install_cudatoolkit.mp4.gif 
+# 2 - click on your cuda version and then get for linux the runfile(local) link 
 #
 # Download cuDNN library
 # 1 - Download cuDNN from https://developer.nvidia.com/cudnn after login in
@@ -25,7 +25,7 @@ gpu_architecture=7.5
 # 3 - Choose your version. For example “cuDNN (v7.4.1) for CUDA (9.0)” and “cuDNN Library for Linux”
 #
 # Set up GPU for OpenCV
-# 1 - Grab your GPU name by typig in terminal: nvidia-smi. For example "GeForce RTX 280 Ti" 
+# 1 - Grab your GPU name by typing in terminal: nvidia-smi. For example "GeForce RTX 2080 Ti" 
 # 2 - Search for that name in https://developer.nvidia.com/cuda-gpus
 # 3 - your gpu_architecture number is displayed under "Compute Capability"
 # 
